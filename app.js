@@ -2,6 +2,21 @@
 let tasks = [];
 let currentFilter = 'all';
 
+// Feature: Contador de tiempo - Developer 2
+function getTimeAgo(dateString) {
+    const now = new Date();
+    const created = new Date(dateString);
+    const diffMs = now - created;
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / 3600000);
+    const diffDays = Math.floor(diffMs / 86400000);
+
+    if (diffMins < 1) return 'Ahora';
+    if (diffMins < 60) return `Hace ${diffMins} min`;
+    if (diffHours < 24) return `Hace ${diffHours}h`;
+    return `Hace ${diffDays}d`;
+}
+
 // Cargar tareas del localStorage al iniciar
 document.addEventListener('DOMContentLoaded', () => {
     loadTasks();
@@ -60,7 +75,12 @@ function renderTasks() {
                    class="task-checkbox" 
                    ${task.completed ? 'checked' : ''} 
                    onchange="toggleTask(${task.id})">
-            <span class="task-text">${task.text}</span>
+            <span class="task-text">
+    ${task.text}
+    <small style="color: #999; font-size: 12px; display: block; margin-top: 5px;">
+    ${getTimeAgo(task.createdAt)}
+    </small>
+    </span>
             <button class="delete-btn" onclick="deleteTask(${task.id})">🗑️ Eliminar</button>
         `;
         taskList.appendChild(li);
