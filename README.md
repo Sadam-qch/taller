@@ -1,6 +1,6 @@
 # 📝 To-Do App - Bootcamp DevSecOps
 
-Sistema de gestión de tareas desarrollado durante el Bootcamp DevSecOps.
+<p class="subtitle">Bootcamp DevSecOps - Version 1.0.0</p>
 
 ## 🚀 Características
 
