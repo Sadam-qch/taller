@@ -40,11 +40,13 @@ function addTask() {
         return;
     }
 
+    const category = document.getElementById('categorySelect').value;
     const task = {
         id: Date.now(),
         text: taskText,
         completed: false,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
+        category: category
     };
 
     tasks.push(task);
@@ -75,12 +77,7 @@ function renderTasks() {
                    class="task-checkbox" 
                    ${task.completed ? 'checked' : ''} 
                    onchange="toggleTask(${task.id})">
-            <span class="task-text">
-    ${task.text}
-    <small style="color: #999; font-size: 12px; display: block; margin-top: 5px;">
-    ${getTimeAgo(task.createdAt)}
-    </small>
-    </span>
+            <span class="task-text">${task.text}</span>
             <button class="delete-btn" onclick="deleteTask(${task.id})">🗑️ Eliminar</button>
         `;
         taskList.appendChild(li);
@@ -166,4 +163,12 @@ function loadTasks() {
     if (stored) {
         tasks = JSON.parse(stored);
     }
+}
+function getCategoryIcon(category) {
+    const icons = {
+        'personal': '🏠',
+        'trabajo': '💼',
+        'urgente': '🔥'
+    };
+    return icons[category] || '📝';
 }
